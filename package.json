@@ -13,5 +13,10 @@
   "devDependencies": {
     "sass": "^1.85.0",
     "sass-loader": "^10.5.2"
-  }
+  },
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/bg-git/AURICLE-Storefront",
+  "author": "bg-gitmm <info@brooksandgrant.com>",
+  "license": "MIT"
 }
