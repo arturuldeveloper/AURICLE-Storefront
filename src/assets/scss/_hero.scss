@@ -1,0 +1,65 @@
+@use "sass:color";
+@use "sass:math";
+/* HERO SECTION */
+.hero {
+    width: 100%;
+    background: #181818;
+    border-bottom: 0.5px solid #ffffff;
+    padding: 30px 16px; /* Default for mobile */
+    text-align: left;
+}
+
+/* MAIN TITLE */
+.hero__title {
+    font-size: 28px; /* Slightly smaller default for better mobile fit */
+    font-weight: bold;
+    color: white;
+    margin-bottom: 8px;
+}
+
+/* SUBTITLE */
+.hero__subtitle {
+    font-size: 14px;
+    font-weight: normal;
+    color: white;
+    margin-bottom: 20px;
+}
+
+/* BUTTONS */
+.hero__buttons {
+    display: flex;
+    gap: 16px; /* Increased spacing between buttons */
+}
+
+.hero__button {
+    background: white;
+    color: black;
+    padding: 12px 24px;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: bold;
+    text-align: center;
+    border-radius: 0;
+    border: none;
+}
+
+/* MEDIA QUERIES */
+@media screen and (min-width: 768px) {
+    .hero {
+        padding: 40px 24px; /* More gradual increase */
+    }
+
+    .hero__title {
+        font-size: 36px; /* Increase slightly for tablets */
+    }
+}
+
+@media screen and (min-width: 1024px) {
+    .hero {
+        padding: 50px 32px; /* Controlled padding on desktops */
+    }
+
+    .hero__title {
+        font-size: 42px; /* Larger on desktop */
+    }
+}

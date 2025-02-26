@@ -1,0 +1,88 @@
+@use "sass:color";
+@use "sass:math";
+/* VIDEO SECTION */
+.video-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: #ffffff; /* Full white background */
+    padding: 0;
+    margin: 0;
+}
+  
+/* VIDEO CONTAINER */
+.video-container {
+    width: 100%;
+    aspect-ratio: 1 / 1; /* 1:1 ratio */
+    overflow: hidden;
+}
+  
+.video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+  
+/* TEXT CONTAINER */
+.video-content {
+    background: white;
+    width: 100%;
+    text-align: left;
+    padding: 30px 16px; /* Added padding for text spacing */
+    margin: 0;
+}
+  
+/* Text Styling */
+.video-subtitle {
+    font-size: 14px;
+    color: #181818;
+    margin-bottom: 8px;
+}
+  
+.video-title {
+    font-size: 24px;
+    font-weight: bold;
+    color: #181818;
+    margin-bottom: 16px;
+}
+  
+/* BUTTON */
+.video-button {
+    display: inline-block;
+    background: #181818;
+    color: white;
+    padding: 12px 24px;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 300; /* Fixed font weight */
+    text-align: center;
+    border-radius: 0;
+}
+  
+/* MEDIA QUERIES - DESKTOP VIEW */
+@media screen and (min-width: 1024px) {
+    .video-section {
+        flex-direction: row;
+        justify-content: center; /* Ensures even spacing */
+        align-items: center;
+    }
+
+    .video-container {
+        width: 50%;
+        order: 2; /* Moves video to the right */
+    }
+
+    .video-content {
+        width: 50%;
+        order: 1; /* Moves text container to the left */
+        padding: 50px; /* Increased padding for desktop */
+    }
+
+    .video-title {
+        font-size: 32px;
+    }
+
+    .video-subtitle {
+        font-size: 16px;
+    }
+}

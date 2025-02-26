@@ -1,0 +1,79 @@
+@use "sass:color";
+@use "sass:math";
+/* HEADER STYLES - Mobile First */
+.header-wrapper {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background: #181818;
+  border-bottom: 0.5px solid #ffffff;
+  z-index: 1000;
+  padding: 10px 16px; /* Mobile-friendly padding */
+  display: flex;
+  align-items: center;
+}
+
+/* LOGO - Mobile First */
+.header__heading-logo {
+  height: 20px;
+  display: block;
+}
+
+/* MEDIA QUERIES - Larger Screens */
+@media screen and (min-width: 768px) {
+  .header-wrapper {
+    padding: 12px 24px; /* Adjust padding for tablets */
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  .header-wrapper {
+    padding: 14px 32px; /* Adjust padding for desktops */
+  }
+
+  .header__heading-logo {
+    height: 24px; /* Slightly larger logo for desktops */
+  }
+}
+/* HEADER MENU SECTION */
+.header-menu {
+    position: fixed;
+    top: 40px;
+    width: 100%;
+    background: #181818;
+    border-bottom: 0.5px solid #ffffff;
+    padding: 10px 16px;
+  }
+  
+  /* MENU ITEMS */
+  .header-menu__list {
+    list-style: none;
+    display: flex;
+    gap: 16px; /* Space between menu items */
+    padding: 0;
+    margin: 0;
+  }
+  
+  .header-menu__item a {
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: light;
+    text-transform: uppercase;
+    color: white;
+    display: block;
+  }
+  
+  /* MEDIA QUERIES - Adjust Spacing on Larger Screens */
+  @media screen and (min-width: 768px) {
+    .header-menu {
+      padding: 12px 24px;
+      top: 43px;
+    }
+  }
+  
+  @media screen and (min-width: 1024px) {
+    .header-menu {
+      padding: 14px 32px;
+      top: 50px;
+    }
+  }
