@@ -2,6 +2,8 @@
 @use "hero";
 @use "video";
 @use "footer";
+@use "products";
+@use "fonts"; /* ✅ Make sure fonts are loaded */
 
 /* RESET & BASE STYLES */
 * {
@@ -10,21 +12,26 @@
   box-sizing: border-box;
 }
 
+/* ✅ Apply Montserrat as the main font */
 body {
   background: white;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  font-family: "Montserrat", sans-serif; /* ✅ Use Montserrat instead of system fonts */
   color: black;
   padding-top: 70px; /* Default for mobile */
 }
 
-/* Increase padding for tablets */
+/* ✅ Headings use Bebas Neue */
+h1, h2 {
+  font-family: "Montserrat", sans-serif;
+}
+
+/* ✅ Ensure correct padding on different screen sizes */
 @media screen and (min-width: 768px) {
   body {
     padding-top: 80px;
   }
 }
 
-/* Increase padding for larger screens */
 @media screen and (min-width: 1024px) {
   body {
     padding-top: 95px;

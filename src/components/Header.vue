@@ -12,7 +12,8 @@
         <!-- Navigation -->
         <nav class="header__inline-menu">
           <ul class="list-menu list-menu--inline">
-            <li class="list-menu-item"><router-link to="/products">Shop</router-link></li>
+            <li class="list-menu-item"><router-link to="/">Home</router-link></li>
+            <li class="list-menu-item"><router-link to="/sterling-silver-bracelets">Bracelets</router-link></li>
             <li class="list-menu-item"><router-link to="/about">About</router-link></li>
             <li class="list-menu-item"><router-link to="/contact">Contact</router-link></li>
           </ul>
@@ -37,4 +38,3 @@ export default {
   name: "Header",
 };
 </script>
-

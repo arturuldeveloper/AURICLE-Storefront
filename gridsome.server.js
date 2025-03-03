@@ -4,8 +4,8 @@ const SHOPIFY_STORE = "auricle-jewellery.myshopify.com";
 const STOREFRONT_TOKEN = "8b15fe8025136cfc492eb6d0408820dc";
 
 module.exports = function (api) {
+  // Fetch and add products
   api.loadSource(async ({ addCollection }) => {
-    // Existing products code ...
     const productCollection = addCollection("ShopifyProduct");
     const productQuery = `
       {
@@ -35,6 +35,14 @@ module.exports = function (api) {
                   }
                 }
               }
+              collections(first: 10) {
+                edges {
+                  node {
+                    handle
+                    title
+                  }
+                }
+              }
             }
           }
         }
@@ -42,7 +50,7 @@ module.exports = function (api) {
     `;
     try {
       const response = await axios.post(
-        `https://${SHOPIFY_STORE}/api/2025-01/graphql.json`,
+        `https://${SHOPIFY_STORE}/api/2024-10/graphql.json`,
         { query: productQuery },
         {
           headers: {
@@ -64,24 +72,30 @@ module.exports = function (api) {
           id: product.id,
           title: product.title,
           description: product.description,
-          productType: product.productType,
-          image: product.images.edges.length ? product.images.edges[0].node.originalSrc : "",
+          productType: product.productType, // remains empty if Shopify returns empty
+          // New: store the handles of collections this product belongs to.
+          collections: product.collections.edges.map(edge => edge.node.handle),
+          image: product.images.edges.length
+            ? product.images.edges[0].node.originalSrc
+            : "",
           price: product.variants.edges.length
             ? `${product.variants.edges[0].node.priceV2.amount} ${product.variants.edges[0].node.priceV2.currencyCode}`
             : "",
-          path: `/${generateSlug(product.title, product.id)}`, // clean product URL
+          path: `/${generateSlug(product.title, product.id)}`,
         });
       });
       console.log("✅ Shopify products fetched successfully!");
     } catch (error) {
       console.error("❌ Error fetching Shopify products:", error);
     }
+  });
 
-    // --- New: Fetch Shopify Collections ---
+  // Fetch and add collections
+  api.loadSource(async ({ addCollection }) => {
     const collectionCollection = addCollection("ShopifyCollection");
     const collectionQuery = `
       {
-        collections(first: 250) {
+        collections(first: 100) {
           edges {
             node {
               id
@@ -98,8 +112,8 @@ module.exports = function (api) {
       }
     `;
     try {
-      const collResponse = await axios.post(
-        `https://${SHOPIFY_STORE}/api/2025-01/graphql.json`,
+      const response = await axios.post(
+        `https://${SHOPIFY_STORE}/api/2024-10/graphql.json`,
         { query: collectionQuery },
         {
           headers: {
@@ -108,36 +122,30 @@ module.exports = function (api) {
           },
         }
       );
-      console.log("Collection Response:", collResponse.data.data.collections.edges);
-      if (collResponse.data && collResponse.data.data && collResponse.data.data.collections) {
-        collResponse.data.data.collections.edges.forEach(({ node: collection }) => {
-          collectionCollection.addNode({
-            id: collection.id,
-            title: collection.title,
-            description: collection.description,
-            image: collection.image ? collection.image.originalSrc : "",
-            handle: collection.handle,
-            path: `/${collection.handle}`, // clean URL: remove "/collections"
-          });
+      const collections = response.data.data.collections.edges;
+      collections.forEach(({ node: collection }) => {
+        collectionCollection.addNode({
+          id: collection.id,
+          handle: collection.handle,
+          title: collection.title,
+          description: collection.description,
+          image: collection.image ? collection.image.originalSrc : ""
         });
-      }
+      });
       console.log("✅ Shopify collections fetched successfully!");
     } catch (error) {
       console.error("❌ Error fetching Shopify collections:", error);
     }
   });
-  
-  // --- Create pages for collections ---
+
+  // Create dynamic pages for collections at the root (e.g. /collection-name)
   api.createPages(({ createPage, graphql }) => {
-    const collectionTemplate = "./src/templates/Collection.vue";
     return graphql(`
       {
         allShopifyCollection {
           edges {
             node {
-              id
               handle
-              path
             }
           }
         }
@@ -145,8 +153,8 @@ module.exports = function (api) {
     `).then(result => {
       result.data.allShopifyCollection.edges.forEach(({ node }) => {
         createPage({
-          path: node.path, // e.g. "/sterling-silver-bracelets"
-          component: collectionTemplate,
+          path: `/${node.handle}`,
+          component: './src/templates/Collection.vue',
           context: {
             handle: node.handle
           }

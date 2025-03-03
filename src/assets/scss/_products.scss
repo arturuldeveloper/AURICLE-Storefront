@@ -1,0 +1,145 @@
+@use "sass:color";
+@use "sass:math";
+
+/* Mobile-first styling */
+.products-container {
+  max-width: 100%;
+  margin: 0 auto;
+  padding: 20px 10px;
+  text-align: center;
+}
+
+h1 {
+  font-size: 24px;
+  margin-bottom: 15px;
+  text-align: left;
+}
+
+/* Layout Wrapper */
+.products-wrapper {
+  display: flex;
+  flex-direction: column; /* No sidebar on mobile */
+}
+
+/* Filters (Hidden on Mobile) */
+.filters {
+  display: none;
+}
+
+/* Product Card - Fixed Height to Prevent Uneven Layouts */
+.product-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; /* Ensures spacing remains consistent */
+  width: 100%;
+  min-height: 320px; /* Ensures uniform height across all product cards */
+  overflow: hidden; /* Prevents content from overflowing */
+  background: #fff; /* Keeps it looking clean */
+}
+
+/* Prevent Overlapping Issues */
+.product-card a {
+  display: flex;
+  flex-direction: column;
+  align-items: left;
+  width: 100%;
+  height: 100%;
+  text-decoration: none;
+  color: inherit;
+}
+
+/* Ensure 2-column layout for mobile */
+.products-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* Force 2 columns */
+    gap: 5px;
+  }
+  
+  /* Adjust for tablet and desktop */
+  @media (min-width: 768px) {
+    .products-grid {
+      grid-template-columns: repeat(4, 1fr); /* Adjust to 4 columns */
+    }
+  }
+  
+  @media (min-width: 1024px) {
+    .products-grid {
+      grid-template-columns: repeat(5, 1fr); /* Adjust to 5 columns */
+    }
+  }
+  
+
+/* Title & Price Container - Ensures consistent height */
+.product-info {
+    flex-grow: 1; /* Allows the container to expand */
+    padding: 0 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end; /* Keeps price at the bottom */
+    min-height: 60px; /* Ensures consistent height for different title lengths */
+  }
+  
+
+/* Product Image - Always 9:16 Portrait */
+.product-image {
+  width: 100%;
+  aspect-ratio: 9 / 16; /* Forces consistent 9:16 portrait aspect ratio */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+/* Ensure images fill the container without distortion */
+.product-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Ensures images fill the space while keeping proportions */
+}
+
+/* Title - Fixed Height for Consistency */
+h2 {
+    font-size: 12px;
+    font-weight: lighter;
+    margin: 15px 0 0 8px;
+    text-align: left;
+    line-height: 1.2;
+    max-height: 2.4em; /* Prevents title from taking more than 2 lines */
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    min-height: 2.4em; /* Ensures space for exactly 2 lines */
+  }
+  
+
+/* Price - Stays Fixed at Bottom Right */
+.price {
+  font-size: 10px;
+  font-weight: lighter;
+  text-align: right;
+  margin: auto 8px 10px auto; /* Ensures the price is at the bottom right */
+}
+
+/* Tablet & Desktop */
+@media (min-width: 768px) {
+  .products-wrapper {
+    flex-direction: row;
+  }
+
+  .filters {
+    display: block;
+    width: 250px;
+    padding: 20px;
+  }
+
+  .products-grid {
+    grid-template-columns: repeat(5, 1fr); /* 5 columns */
+    gap: 10px;
+  }
+
+  h2 {
+    font-size: 14px;
+  }
+}

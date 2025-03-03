@@ -1,29 +1,44 @@
 module.exports = {
   siteName: "Auricle Jewellery",
-  vue: {
-    server: false, // Disable SSR if you don't need it
+  siteMetadata: {
+    title: "Auricle Jewellery",
+    description: "Your site description here",
   },
-  // chainWebpack(config) {
-  //   config.plugin("html").tap((args) => {
-  //     if (!args[0]) return args; // 🛑 Prevents undefined error
-  //     args[0].meta = args[0].meta || {}; // 🛑 Ensures meta object exists
+  chainWebpack(config) {
+  if (config.plugins.has("html")) {
+    config.plugin("html").tap((args) => {
+      if (!args[0] || typeof args[0] !== "object") return args;
+      args[0].meta = args[0].meta || {};
 
-  //     args[0].meta.link = [
-  //       {
-  //         rel: "preconnect",
-  //         href: "https://fonts.googleapis.com",
-  //       },
-  //       {
-  //         rel: "preconnect",
-  //         href: "https://fonts.gstatic.com",
-  //         crossorigin: "anonymous",
-  //       },
-  //       {
-  //         rel: "stylesheet",
-  //         href: "https://fonts.googleapis.com/css2?family=YourFont:wght@400;700&display=swap",
-  //       },
-  //     ];
-  //     return args;
-  //   });
-  // },
-};
+      // Preload fonts for faster performance
+      args[0].link = args[0].link || [];
+      args[0].link.push(
+        {
+          rel: "preload",
+          href: "/assets/fonts/Montserrat-Light.woff2",
+          as: "font",
+          type: "font/woff2",
+          crossorigin: "anonymous",
+        },
+        {
+          rel: "preload",
+          href: "/assets/fonts/Montserrat-Medium.woff2",
+          as: "font",
+          type: "font/woff2",
+          crossorigin: "anonymous",
+        },
+        {
+          rel: "preload",
+          href: "/assets/fonts/BebasNeue-Regular.woff2",
+          as: "font",
+          type: "font/woff2",
+          crossorigin: "anonymous",
+        }
+      );
+
+      return args;
+    });
+  }
+  }
+}
+

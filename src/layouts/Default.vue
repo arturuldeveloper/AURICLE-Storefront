@@ -28,9 +28,9 @@ export default {
     <nav class="header-menu">
       <ul class="header-menu__list">
         <li class="header-menu__item"><g-link to="/">Home</g-link></li>
-        <li class="header-menu__item"><g-link to="/sterling-silver-bracelets/">Bracelets</g-link></li>
-        <li class="header-menu__item"><g-link to="/products/">Shop</g-link></li>
-        <li class="header-menu__item"><g-link to="/contact/">Contact</g-link></li>
+        <li class="header-menu__item"><g-link to="/sterling-silver-bracelets">Bracelets</g-link></li>
+        <li class="header-menu__item"><g-link to="/products">Shop</g-link></li>
+        <li class="header-menu__item"><g-link to="/contact">Contact</g-link></li>
       </ul>
     </nav>
 
